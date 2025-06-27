@@ -4,6 +4,7 @@ import { deleteCategory } from "../services/categories/deleteCategory.js";
 import { getCategoryById } from "../services/categories/getCategoryById.js";
 import { getCategories } from "../services/categories/getCategories.js";
 import { updateCategory } from "../services/categories/updateCategory.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/", (req, res) => {
   res.json(categories);
 });
 
-router.post("/", (req, res) => {
+router.post("/", authMiddleware, (req, res) => {
   const { name } = req.body;
   const newCategory = createCategory(name);
   res.status(201).json(newCategory);
@@ -24,14 +25,14 @@ router.get("/:id", (req, res) => {
   res.json(category);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
   const updatedCategory = updateCategory(id, name);
   res.json(updatedCategory);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
   const deletedCategory = deleteCategory(id);
   res

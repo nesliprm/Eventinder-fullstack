@@ -15,7 +15,7 @@
   "description": "REST API for managing events",
   "dependencies": {
     "@sentry/node": "^7.64.0",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.1",
     "uuid": "^9.0.1",

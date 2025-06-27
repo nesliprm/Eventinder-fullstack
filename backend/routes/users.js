@@ -4,10 +4,11 @@ import { deleteUser } from "../services/users/deleteUser.js";
 import { getUserById } from "../services/users/getUserById.js";
 import { getUsers } from "../services/users/getUsers.js";
 import { updateUser } from "../services/users/updateUser.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", authMiddleware, (req, res) => {
   const users = getUsers();
   res.json(users);
 });
@@ -18,20 +19,20 @@ router.post("/", (req, res) => {
   res.status(201).json(newUser);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
   const user = getUserById(id);
   res.json(user);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
   const { username, password, name } = req.body;
   const updatedUser = updateUser(id, username, password, name);
   res.json(updatedUser);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
   const deletedUser = deleteUser(id);
   res
