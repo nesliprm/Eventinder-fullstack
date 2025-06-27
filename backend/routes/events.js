@@ -51,7 +51,7 @@ router.put("/:id", (req, res) => {
     startTime,
     endTime,
   } = req.body;
-  console.log("Updating event:", id, req.body);
+
   const updatedEvent = updateEvent(
     id,
     createdBy,
