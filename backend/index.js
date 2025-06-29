@@ -1,4 +1,4 @@
-import "./instrument.js";
+import "./utils/instrument.js";
 import * as Sentry from "@sentry/node";
 import express from "express";
 import eventsRouter from "./routes/events.js";
@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-Sentry.setupExpressErrorHandler(app);
+app.use(Sentry.Handlers.errorHandler());
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");
