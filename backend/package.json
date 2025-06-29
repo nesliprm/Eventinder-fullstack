@@ -14,7 +14,7 @@
   "license": "ISC",
   "description": "REST API for managing events",
   "dependencies": {
-    "@sentry/node": "^7.64.0",
+    "@sentry/node": "^7.120.3",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.1",
