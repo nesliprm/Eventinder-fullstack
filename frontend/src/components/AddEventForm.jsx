@@ -6,6 +6,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { apiFetch } from "../lib/api";
 
 export const AddEventForm = ({ event, onClose, categories, onSubmit }) => {
   const [title, setTitle] = useState(event?.title || "");
@@ -26,13 +27,10 @@ export const AddEventForm = ({ event, onClose, categories, onSubmit }) => {
       categoryIds,
     };
 
-    const url = event
-      ? `http://localhost:3000/events/${event.id}`
-      : "http://localhost:3000/events";
-
+    const url = event ? `/events/${event.id}` : "/events";
     const method = event ? "PUT" : "POST";
 
-    const response = await fetch(url, {
+    const response = await apiFetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

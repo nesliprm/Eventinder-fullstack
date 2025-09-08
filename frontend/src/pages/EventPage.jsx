@@ -27,6 +27,7 @@ import {
 } from "@chakra-ui/react";
 import { AddEventForm } from "../components/AddEventForm";
 import mockImage from "../assets/mockeventimage.jpg";
+import { apiFetch } from "../lib/api";
 
 export const EventPage = () => {
   const { eventId } = useParams();
@@ -51,13 +52,13 @@ export const EventPage = () => {
 
   useEffect(() => {
     async function loadEvent() {
-      const response = await fetch(`http://localhost:3000/events/${eventId}`);
+      const response = await apiFetch(`/events/${eventId}`);
       const data = await response.json();
       setEvent(data);
     }
 
     async function loadCategories() {
-      const response = await fetch(`http://localhost:3000/categories`);
+      const response = await apiFetch(`/categories`);
       const data = await response.json();
       setCategories(data);
     }
@@ -70,9 +71,7 @@ export const EventPage = () => {
     async function loadCreator() {
       if (!event) return;
       if (typeof event.createdBy === "number") {
-        const response = await fetch(
-          `http://localhost:3000/users/${event.createdBy}`
-        );
+        const response = await apiFetch(`/users/${event.createdBy}`);
         const data = await response.json();
         setCreator(data);
       } else if (typeof event.createdBy === "string") {
@@ -93,7 +92,7 @@ export const EventPage = () => {
   const handleDelete = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:3000/events/${event.id}`, {
+    const response = await apiFetch(`/events/${eventId}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });

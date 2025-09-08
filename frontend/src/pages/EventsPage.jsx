@@ -22,6 +22,7 @@ import { AddEventForm } from "../components/AddEventForm";
 import { useSearch } from "./SearchContext";
 import mockImage from "../assets/mockeventimage.jpg";
 import { ScrollTopButton } from "../components/ScrollTopButton";
+import { apiFetch } from "../lib/api";
 
 export const EventsPage = () => {
   const [events, setEvents] = useState([]);
@@ -45,13 +46,13 @@ export const EventsPage = () => {
 
   useEffect(() => {
     async function fetchEvents() {
-      const response = await fetch("http://localhost:3000/events");
+      const response = await apiFetch(`/events`);
       const events = await response.json();
       setEvents(events);
     }
 
     async function fetchCategories() {
-      const response = await fetch("http://localhost:3000/categories");
+      const response = await apiFetch(`/categories`);
       const categories = await response.json();
       setCategories(categories);
     }
