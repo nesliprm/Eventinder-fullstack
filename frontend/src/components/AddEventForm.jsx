@@ -4,11 +4,13 @@ import {
   Input,
   Button,
   Select,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { apiFetch } from "../lib/api";
 
 export const AddEventForm = ({ event, onClose, categories, onSubmit }) => {
+  const toast = useToast();
   const [title, setTitle] = useState(event?.title || "");
   const [createdBy, setCreatedBy] = useState(event?.createdBy || "");
   const [description, setDescription] = useState(event?.description || "");
@@ -29,15 +31,27 @@ export const AddEventForm = ({ event, onClose, categories, onSubmit }) => {
 
     const url = event ? `/events/${event.id}` : "/events";
     const method = event ? "PUT" : "POST";
-
-    const response = await apiFetch(url, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    const resultEvent = await response.json();
-    onSubmit(resultEvent);
-    onClose();
+    try {
+      const response = await apiFetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const resultEvent = await response.json();
+      onSubmit(resultEvent);
+      toast({
+        title: event ? "Event updated" : "Event created",
+        status: "success",
+      });
+      onClose();
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Save failed",
+        description: String(error),
+        status: "error",
+      });
+    }
   };
 
   return (
@@ -81,8 +95,14 @@ export const AddEventForm = ({ event, onClose, categories, onSubmit }) => {
         />
         <FormLabel mt={3}>Category</FormLabel>
         <Select
-          value={categoryIds[0] || ""}
-          onChange={(e) => setCategoryIds([Number(e.target.value)])}
+          placeholder="Select a category"
+          required
+          value={categoryIds[0] ?? ""}
+          onChange={(e) =>
+            setCategoryIds(
+              e.target.value === "" ? [] : [Number(e.target.value)]
+            )
+          }
         >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>

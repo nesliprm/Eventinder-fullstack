@@ -91,17 +91,25 @@ export const EventPage = () => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-
-    const response = await apiFetch(`/events/${eventId}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    });
-    if (response.ok) {
-      toast({ title: "Event deleted.", status: "success" });
-      onDeleteClose();
-      navigate("/");
-    } else {
-      toast({ title: "Action failed.", status: "error" });
+    try {
+      const response = await apiFetch(`/events/${eventId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.ok) {
+        toast({ title: "Event deleted.", status: "success" });
+        onDeleteClose();
+        navigate("/");
+      } else {
+        toast({ title: "Action failed.", status: "error" });
+      }
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Delete failed",
+        description: String(error),
+        status: "error",
+      });
     }
   };
 
