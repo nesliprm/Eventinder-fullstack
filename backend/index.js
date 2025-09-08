@@ -7,10 +7,12 @@ import categoriesRouter from "./routes/categories.js";
 import loginRouter from "./routes/login.js";
 import { loggerMiddleware } from "./middleware/loggerMiddleware.js";
 import "dotenv/config";
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());
+app.use(cors({ origin: "*" }));
 
 app.use(loggerMiddleware);
 
@@ -25,6 +27,7 @@ app.get("/", (req, res) => {
 
 app.use(Sentry.Handlers.errorHandler());
 
-app.listen(3000, () => {
-  console.log("Server is listening on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is listening on ${PORT}`);
 });

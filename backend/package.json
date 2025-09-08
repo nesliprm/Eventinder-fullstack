@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "test-positive": "newman run \"postman/collections/Events API.json\" -e \"postman/environments/Local.postman_environment.json\"",
     "test-negative": "newman run \"postman/collections/Events API Negative.json\" -e \"postman/environments/Local.postman_environment.json\"",
@@ -15,6 +16,7 @@
   "description": "REST API for managing events",
   "dependencies": {
     "@sentry/node": "^7.120.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.1",
@@ -22,7 +24,7 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
-    "newman": "^5.3.2",
+    "newman": "^6.2.1",
     "nodemon": "^3.1.10",
     "prisma": "^5.1.1"
   }
