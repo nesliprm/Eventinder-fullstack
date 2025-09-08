@@ -8,7 +8,7 @@ import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", authMiddleware, (req, res) => {
+router.get("/", (req, res) => {
   try {
     const users = getUsers();
     res.json(users);
@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
   }
 });
 
-router.get("/:id", authMiddleware, (req, res) => {
+router.get("/:id", (req, res) => {
   try {
     const { id } = req.params;
     const user = getUserById(id);
