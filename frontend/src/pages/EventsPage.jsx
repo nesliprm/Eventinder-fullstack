@@ -62,7 +62,7 @@ export const EventsPage = () => {
       const response = await apiFetch(`/users`);
       const users = await response.json();
       const map = users.reduce((acc, user) => {
-        acc[user.id] = user;
+        acc[String(user.id)] = user;
         return acc;
       }, {});
       setUsersById(map);
@@ -171,10 +171,13 @@ export const EventsPage = () => {
 
                       <HStack mt="1" spacing={2} align="center">
                         {(() => {
-                          const creator =
-                            typeof event.createdBy === "number"
-                              ? usersById[event.createdBy]
-                              : { name: event.createdBy };
+                          const key = String(event.createdBy);
+                          const isIdLike = /^\d+$/.test(key);
+                          const creator = isIdLike
+                            ? usersById[key]
+                            : typeof event.createdBy === "string"
+                            ? { name: event.createdBy }
+                            : null;
                           return (
                             <>
                               <Text fontSize="sm" color="gray.600">

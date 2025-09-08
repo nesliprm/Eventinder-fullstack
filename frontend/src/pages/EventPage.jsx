@@ -70,12 +70,18 @@ export const EventPage = () => {
   useEffect(() => {
     async function loadCreator() {
       if (!event) return;
-      if (typeof event.createdBy === "number") {
-        const response = await apiFetch(`/users/${event.createdBy}`);
+      const cb = event.createdBy;
+      const isIdLike =
+        typeof cb === "number" || (typeof cb === "string" && /^\d+$/.test(cb));
+
+      if (isIdLike) {
+        const response = await apiFetch(`/users/${cb}`);
         const data = await response.json();
         setCreator(data);
-      } else if (typeof event.createdBy === "string") {
-        setCreator({ name: event.createdBy });
+      } else if (typeof cb === "string" && cb.trim()) {
+        setCreator({ name: cb });
+      } else {
+        setCreator(null);
       }
     }
 
