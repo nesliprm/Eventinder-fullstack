@@ -30,6 +30,7 @@ export const EventsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedCategory, setSelectedCategory] = useState("");
   const { searchTerm } = useSearch();
+  const [usersById, setUsersById] = useState({});
 
   const filteredEvents = events
     .filter((event) =>
@@ -57,8 +58,19 @@ export const EventsPage = () => {
       setCategories(categories);
     }
 
+    async function fetchUsers() {
+      const response = await apiFetch(`/users`);
+      const users = await response.json();
+      const map = users.reduce((acc, user) => {
+        acc[user.id] = user;
+        return acc;
+      }, {});
+      setUsersById(map);
+    }
+
     fetchEvents();
     fetchCategories();
+    fetchUsers();
   }, []);
 
   return (
@@ -156,6 +168,34 @@ export const EventsPage = () => {
                       <Heading as="b" fontSize="3xl">
                         {event.title}
                       </Heading>
+
+                      <HStack mt="1" spacing={2} align="center">
+                        {(() => {
+                          const creator =
+                            typeof event.createdBy === "number"
+                              ? usersById[event.createdBy]
+                              : { name: event.createdBy };
+                          return (
+                            <>
+                              <Text fontSize="sm" color="gray.600">
+                                Created by{" "}
+                                <Text as="span" fontWeight="semibold">
+                                  {creator?.name || "Unknown"}
+                                </Text>
+                              </Text>
+                              {creator?.image && (
+                                <Image
+                                  src={creator.image}
+                                  alt={creator.name}
+                                  boxSize="28px"
+                                  objectFit="cover"
+                                  borderRadius="full"
+                                />
+                              )}
+                            </>
+                          );
+                        })()}
+                      </HStack>
 
                       <Text py="2" fontSize="md">
                         {event.description}
