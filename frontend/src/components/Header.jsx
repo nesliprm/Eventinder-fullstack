@@ -20,7 +20,7 @@ export const Header = () => {
         <Heading
           fontFamily="Monoton"
           fontWeight="normal"
-          fontSize={{ base: "4xl", md: "6xl" }}
+          fontSize={{ base: "4xl", md: "7xl" }}
         >
           Eventinder
         </Heading>
