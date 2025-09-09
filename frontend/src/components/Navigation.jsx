@@ -26,7 +26,7 @@ export const Navigation = () => {
     >
       <HStack mx={{ base: "1", md: "5" }}>
         <Link to="/">Home</Link>
-        <Link to="/">Contact</Link>
+        <Link href="mailto:hello@eventinder.com">Contact</Link>
       </HStack>
 
       <HStack mx={{ base: "1", md: "5" }}>
