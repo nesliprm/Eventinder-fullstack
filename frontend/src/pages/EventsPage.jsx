@@ -38,7 +38,7 @@ export const EventsPage = () => {
         ? event.categoryIds.length === 0
         : selectedCategory === "showAll" || selectedCategory === ""
         ? true
-        : event.categoryIds.includes(Number(selectedCategory))
+        : event.categoryIds.map(String).includes(String(selectedCategory))
     )
 
     .filter((event) =>
