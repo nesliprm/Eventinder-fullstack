@@ -23,6 +23,7 @@ import { useSearch } from "./SearchContext";
 import mockImage from "../assets/mockeventimage.jpg";
 import { ScrollTopButton } from "../components/ScrollTopButton";
 import { apiFetch } from "../lib/api";
+import { LoadingScreen } from "../components/LoadingScreen";
 
 export const EventsPage = () => {
   const [events, setEvents] = useState([]);
@@ -31,6 +32,8 @@ export const EventsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const { searchTerm } = useSearch();
   const [usersById, setUsersById] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const filteredEvents = events
     .filter((event) =>
@@ -46,31 +49,48 @@ export const EventsPage = () => {
     );
 
   useEffect(() => {
-    async function fetchEvents() {
-      const response = await apiFetch(`/events`);
-      const events = await response.json();
-      setEvents(events);
+    async function loadAll() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const [eventResponse, categoryResponse, userResppnse] =
+          await Promise.all([
+            apiFetch(`/events`),
+            apiFetch(`/categories`),
+            apiFetch(`/users`),
+          ]);
+
+        const [events, categories, users] = await Promise.all([
+          eventResponse.json(),
+          categoryResponse.json(),
+          userResppnse.json(),
+        ]);
+
+        setEvents(
+          events.map((event) => ({
+            ...event,
+            categoryIds: (event.categoryIds || []).map(String),
+          }))
+        );
+
+        setCategories(categories);
+
+        setUsersById(
+          users.reduce((acc, user) => {
+            acc[String(user.id)] = user;
+            return acc;
+          }, {})
+        );
+      } catch (error) {
+        console.error(error);
+        setError("Couldn’t load data. Please try again.");
+      } finally {
+        setLoading(false);
+      }
     }
 
-    async function fetchCategories() {
-      const response = await apiFetch(`/categories`);
-      const categories = await response.json();
-      setCategories(categories);
-    }
-
-    async function fetchUsers() {
-      const response = await apiFetch(`/users`);
-      const users = await response.json();
-      const map = users.reduce((acc, user) => {
-        acc[String(user.id)] = user;
-        return acc;
-      }, {});
-      setUsersById(map);
-    }
-
-    fetchEvents();
-    fetchCategories();
-    fetchUsers();
+    loadAll();
   }, []);
 
   return (
@@ -123,123 +143,132 @@ export const EventsPage = () => {
         </ModalContent>
       </Modal>
 
-      <Box my={10} display="grid" gap={6}>
-        {filteredEvents.length === 0 ? (
-          <Text>No events found.</Text>
-        ) : (
-          filteredEvents.map((event) => {
-            const start = new Date(event.startTime).toLocaleString("en-GB", {
-              dateStyle: "medium",
-              timeStyle: "short",
-            });
-            const end = new Date(event.endTime).toLocaleString("en-GB", {
-              dateStyle: "medium",
-              timeStyle: "short",
-            });
+      {loading ? (
+        <LoadingScreen />
+      ) : error ? (
+        <Text color="red.500" mt={8}>
+          {error}
+        </Text>
+      ) : (
+        <Box my={10} display="grid" gap={6}>
+          {filteredEvents.length === 0 ? (
+            <Text>No events found.</Text>
+          ) : (
+            filteredEvents.map((event) => {
+              const start = new Date(event.startTime).toLocaleString("en-GB", {
+                dateStyle: "medium",
+                timeStyle: "short",
+              });
+              const end = new Date(event.endTime).toLocaleString("en-GB", {
+                dateStyle: "medium",
+                timeStyle: "short",
+              });
 
-            const categoryNames = event.categoryIds.map((id) => {
-              const match = categories.find((category) => category.id === id);
-              return match ? match.name : "Uncategorized";
-            });
+              const categoryNames = event.categoryIds.map((id) => {
+                const match = categories.find((category) => category.id === id);
+                return match ? match.name : "Uncategorized";
+              });
 
-            return (
-              <Link key={event.id} to={`/event/${event.id}`}>
-                {" "}
-                <Card
-                  key={event.id}
-                  direction={{ base: "column", sm: "row" }}
-                  overflow="hidden"
-                  variant="outline"
-                  borderRadius="20"
-                  _hover={{
-                    boxShadow: "md",
-                    transform: "translate(-1px)",
-                    transition: "all 0.1s ease-in-out",
-                  }}
-                >
-                  <Stack
-                    display="flex"
-                    direction="column"
-                    p={6}
-                    flex="1"
-                    justify="space-between"
+              return (
+                <Link key={event.id} to={`/event/${event.id}`}>
+                  {" "}
+                  <Card
+                    key={event.id}
+                    direction={{ base: "column", sm: "row" }}
+                    overflow="hidden"
+                    variant="outline"
+                    borderRadius="20"
+                    _hover={{
+                      boxShadow: "md",
+                      transform: "translate(-1px)",
+                      transition: "all 0.1s ease-in-out",
+                    }}
                   >
-                    <Box>
-                      <Heading as="b" fontSize="3xl">
-                        {event.title}
-                      </Heading>
+                    <Stack
+                      display="flex"
+                      direction="column"
+                      p={6}
+                      flex="1"
+                      justify="space-between"
+                    >
+                      <Box>
+                        <Heading as="b" fontSize="3xl">
+                          {event.title}
+                        </Heading>
 
-                      <HStack mt="3" spacing={2} align="center">
-                        {(() => {
-                          const key = String(event.createdBy);
-                          const isIdLike = /^\d+$/.test(key);
-                          const creator = isIdLike
-                            ? usersById[key]
-                            : typeof event.createdBy === "string"
-                            ? { name: event.createdBy }
-                            : null;
-                          return (
-                            <>
-                              <Text fontSize="sm" color="gray.600">
-                                Created by{" "}
-                                <Text as="span" fontWeight="semibold">
-                                  {creator?.name || "Unknown"}
+                        <HStack mt="3" spacing={2} align="center">
+                          {(() => {
+                            const key = String(event.createdBy);
+                            const isIdLike = /^\d+$/.test(key);
+                            const creator = isIdLike
+                              ? usersById[key]
+                              : typeof event.createdBy === "string"
+                              ? { name: event.createdBy }
+                              : null;
+                            return (
+                              <>
+                                <Text fontSize="sm" color="gray.600">
+                                  Created by{" "}
+                                  <Text as="span" fontWeight="semibold">
+                                    {creator?.name || "Unknown"}
+                                  </Text>
                                 </Text>
-                              </Text>
-                              {creator?.image && (
-                                <Image
-                                  src={creator.image}
-                                  alt={creator.name}
-                                  boxSize="28px"
-                                  objectFit="cover"
-                                  borderRadius="full"
-                                />
-                              )}
-                            </>
-                          );
-                        })()}
-                      </HStack>
+                                {creator?.image && (
+                                  <Image
+                                    src={creator.image}
+                                    alt={creator.name}
+                                    boxSize="28px"
+                                    objectFit="cover"
+                                    borderRadius="full"
+                                  />
+                                )}
+                              </>
+                            );
+                          })()}
+                        </HStack>
 
-                      <Text py="5" fontSize="sm">
-                        {event.description}
-                      </Text>
-                    </Box>
-                    <Box>
-                      <Text fontSize="sm">Starts: {start}</Text>
-                      <Text fontSize="sm">Ends: {end}</Text>
-                      <Text fontSize="sm">
-                        Categories: {categoryNames.join(", ")}
-                      </Text>
-                    </Box>
-                  </Stack>
+                        <Text py="5" fontSize="sm">
+                          {event.description}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Text fontSize="sm">Starts: {start}</Text>
+                        <Text fontSize="sm">Ends: {end}</Text>
+                        <Text fontSize="sm">
+                          Categories: {categoryNames.join(", ")}
+                        </Text>
+                      </Box>
+                    </Stack>
 
-                  {event.image ? (
-                    <Image
-                      src={event.image}
-                      alt={event.description}
-                      w={{ base: "100%", sm: "xs" }}
-                      maxH={{ base: "200px", sm: "100%" }}
-                      boxSize={{ sm: "xs" }}
-                      objectFit="cover"
-                      alignSelf="stretch"
-                    />
-                  ) : (
-                    <Image
-                      src={mockImage}
-                      alt={event.description}
-                      w={{ base: "100%", sm: "xs" }}
-                      maxH={{ base: "200px", sm: "100%" }}
-                      boxSize={{ sm: "xs" }}
-                      objectFit="cover"
-                      alignSelf="stretch"
-                    />
-                  )}
-                </Card>
-              </Link>
-            );
-          })
-        )}
-      </Box>
+                    {event.image ? (
+                      <Image
+                        src={event.image}
+                        alt={event.description}
+                        w={{ base: "100%", sm: "xs" }}
+                        maxH={{ base: "200px", sm: "100%" }}
+                        boxSize={{ sm: "xs" }}
+                        objectFit="cover"
+                        alignSelf="stretch"
+                      />
+                    ) : (
+                      <Image
+                        src={mockImage}
+                        alt={event.description}
+                        w={{ base: "100%", sm: "xs" }}
+                        maxH={{ base: "200px", sm: "100%" }}
+                        boxSize={{ sm: "xs" }}
+                        objectFit="cover"
+                        alignSelf="stretch"
+                      />
+                    )}
+                  </Card>
+                </Link>
+              );
+            })
+          )}
+        </Box>
+      )}
+
       <Box>{filteredEvents.length === 0 ? "" : <ScrollTopButton />}</Box>
     </Box>
   );
