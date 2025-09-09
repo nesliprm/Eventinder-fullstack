@@ -19,21 +19,21 @@
       "username": "marco_rossi",
       "password": "p@ssw0rd3",
       "name": "Marco Rossi",
-      "image": ""
+      "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d"
     },
     {
       "id": "4",
       "username": "sophia_lee",
       "password": "p@ssw0rd4",
       "name": "Sophia Lee",
-      "image": ""
+      "image": "https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3"
     },
     {
       "id": "5",
       "username": "daniel_nguyen",
       "password": "p@ssw0rd5",
       "name": "Daniel Nguyen",
-      "image": ""
+      "image": "https://images.unsplash.com/photo-1542909168-82c3e7fdca5c"
     }
   ]
 }
