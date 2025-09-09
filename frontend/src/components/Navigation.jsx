@@ -6,6 +6,7 @@ import {
   Box,
   InputRightElement,
   InputGroup,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 
 import { SearchIcon } from "@chakra-ui/icons";
@@ -26,7 +27,7 @@ export const Navigation = () => {
     >
       <HStack mx={{ base: "1", md: "5" }}>
         <Link to="/">Home</Link>
-        <Link href="mailto:hello@eventinder.com">Contact</Link>
+        <ChakraLink href="mailto:hello@eventinder.com">Contact</ChakraLink>
       </HStack>
 
       <HStack mx={{ base: "1", md: "5" }}>
