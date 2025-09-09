@@ -13,6 +13,27 @@
       "password": "p@ssw0rd2",
       "name": "Jane Bennett",
       "image": "https://global-uploads.webflow.com/5eecfecbe625d195e35b89f2/624bfb401d7131c760ca1c63_Elieska%20Lensink.jpg"
+    },
+    {
+      "id": "3",
+      "username": "marco_rossi",
+      "password": "p@ssw0rd3",
+      "name": "Marco Rossi",
+      "image": ""
+    },
+    {
+      "id": "4",
+      "username": "sophia_lee",
+      "password": "p@ssw0rd4",
+      "name": "Sophia Lee",
+      "image": ""
+    },
+    {
+      "id": "5",
+      "username": "daniel_nguyen",
+      "password": "p@ssw0rd5",
+      "name": "Daniel Nguyen",
+      "image": ""
     }
   ]
 }

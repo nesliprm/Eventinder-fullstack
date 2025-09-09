@@ -11,6 +11,22 @@
     {
       "name": "relaxation",
       "id": "3"
+    },
+    {
+      "name": "music",
+      "id": "4"
+    },
+    {
+      "name": "food & drink",
+      "id": "5"
+    },
+    {
+      "name": "outdoors",
+      "id": "6"
+    },
+    {
+      "name": "technology",
+      "id": "7"
     }
   ]
 }
