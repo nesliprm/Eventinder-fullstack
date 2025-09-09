@@ -4,7 +4,7 @@ import heroImage from "../assets/heroimage01b.jpg";
 
 export const Header = () => {
   return (
-    <Link to={`/`}>
+    <Link to={`/`} title="Eventinder Home">
       <Box
         bgImage={heroImage}
         bgSize="cover"

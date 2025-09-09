@@ -8,6 +8,7 @@ export const Footer = () => {
           designed and built by ▼{" "}
           <Link
             href="https://github.com/nesliprm"
+            title="nesliprm on github"
             target="blank"
             fontWeight={600}
           >

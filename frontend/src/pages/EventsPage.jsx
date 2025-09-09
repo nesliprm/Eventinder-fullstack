@@ -143,7 +143,11 @@ export const EventsPage = () => {
             });
 
             return (
-              <Link key={event.id} to={`/event/${event.id}`}>
+              <Link
+                key={event.id}
+                to={`/event/${event.id}`}
+                title={event.title}
+              >
                 {" "}
                 <Card
                   key={event.id}
