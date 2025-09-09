@@ -49,39 +49,58 @@ export const EventsPage = () => {
     );
 
   useEffect(() => {
+    async function fetchJSON(path, tries = 2, delayMs = 1200) {
+      for (let i = 0; i < tries; i++) {
+        const res = await apiFetch(path);
+        if (res.ok) return res.json();
+        if (i === tries - 1)
+          throw new Error(`${path} ${res.status} ${res.statusText}`);
+        await new Promise((r) => setTimeout(r, delayMs));
+      }
+    }
+
     async function loadAll() {
       try {
         setLoading(true);
         setError(null);
 
-        const [eventResponse, categoryResponse, userResppnse] =
-          await Promise.all([
-            apiFetch(`/events`),
-            apiFetch(`/categories`),
-            apiFetch(`/users`),
+        const [eventsPromise, categoriesPromise, usersPromise] = [
+          fetchJSON(`/events`),
+          fetchJSON(`/categories`),
+          fetchJSON(`/users`),
+        ];
+
+        const [eventsResponse, categoriesResponse, usersResponse] =
+          await Promise.allSettled([
+            eventsPromise,
+            categoriesPromise,
+            usersPromise,
           ]);
 
-        const [events, categories, users] = await Promise.all([
-          eventResponse.json(),
-          categoryResponse.json(),
-          userResppnse.json(),
-        ]);
+        if (eventsResponse.status === "fulfilled") {
+          const events = eventsResponse.value.map((e) => ({
+            ...e,
+            categoryIds: (e.categoryIds || []).map(String),
+          }));
+          setEvents(events);
+        } else {
+          console.error("Events failed:", eventsResponse.reason);
+          setError("Couldn’t load events. Please try again.");
+        }
 
-        setEvents(
-          events.map((event) => ({
-            ...event,
-            categoryIds: (event.categoryIds || []).map(String),
-          }))
-        );
+        if (categoriesResponse.status === "fulfilled")
+          setCategories(categoriesResponse.value);
+        else console.error("Categories failed:", categoriesResponse.reason);
 
-        setCategories(categories);
-
-        setUsersById(
-          users.reduce((acc, user) => {
+        if (usersResponse.status === "fulfilled") {
+          const map = usersResponse.value.reduce((acc, user) => {
             acc[String(user.id)] = user;
             return acc;
-          }, {})
-        );
+          }, {});
+          setUsersById(map);
+        } else {
+          console.error("Users failed:", usersResponse.reason);
+        }
       } catch (error) {
         console.error(error);
         setError("Couldn’t load data. Please try again.");
