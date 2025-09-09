@@ -26,8 +26,15 @@ export const Navigation = () => {
       alignItems="center"
     >
       <HStack mx={{ base: "1", md: "5" }}>
-        <Link to="/">Home</Link>
-        <ChakraLink href="mailto:hello@eventinder.com">Contact</ChakraLink>
+        <Link to="/" title="Eventinder Home">
+          Home
+        </Link>
+        <ChakraLink
+          href="mailto:hello@eventinder.com"
+          title="Contact us: hello@eventinder.com"
+        >
+          Contact
+        </ChakraLink>
       </HStack>
 
       <HStack mx={{ base: "1", md: "5" }}>
