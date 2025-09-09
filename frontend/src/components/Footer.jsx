@@ -5,15 +5,15 @@ export const Footer = () => {
     <Box as="footer" py={4} mt={10}>
       <Center>
         <Text fontFamily="monospace" fontSize="xs" color="gray.600">
-          built by{" "}
+          designed and built by ▼{" "}
           <Link
             href="https://github.com/nesliprm"
             target="blank"
             fontWeight={600}
           >
-            nesli
+            nesli parmaksizoglu
           </Link>{" "}
-          - 2025
+          © 2025
         </Text>
       </Center>
     </Box>
