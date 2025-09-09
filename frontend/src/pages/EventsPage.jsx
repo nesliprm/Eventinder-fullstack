@@ -169,7 +169,7 @@ export const EventsPage = () => {
                         {event.title}
                       </Heading>
 
-                      <HStack mt="1" spacing={2} align="center">
+                      <HStack mt="3" spacing={2} align="center">
                         {(() => {
                           const key = String(event.createdBy);
                           const isIdLike = /^\d+$/.test(key);
@@ -200,7 +200,7 @@ export const EventsPage = () => {
                         })()}
                       </HStack>
 
-                      <Text py="2" fontSize="md">
+                      <Text py="5" fontSize="sm">
                         {event.description}
                       </Text>
                     </Box>
