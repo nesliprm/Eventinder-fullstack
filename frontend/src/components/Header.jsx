@@ -1,4 +1,4 @@
-import { Heading, Box } from "@chakra-ui/react";
+import { Heading, Box, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import heroImage from "../assets/heroimage01b.jpg";
 
@@ -12,6 +12,7 @@ export const Header = () => {
         bgRepeat="no-repeat"
         h={{ base: "150px", md: "300px" }}
         display="flex"
+        flexDir="column"
         alignItems="center"
         justifyContent="center"
         color="white"
@@ -24,6 +25,9 @@ export const Header = () => {
         >
           Eventinder
         </Heading>
+        <Text fontSize={{ base: "sm", md: "md" }} fontStyle="italic">
+          find. meet. enjoy.
+        </Text>
       </Box>
     </Link>
   );
