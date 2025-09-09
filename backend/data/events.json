@@ -3,7 +3,7 @@
     {
       "id": "1",
       "createdBy": "1",
-      "title": "Trampoline party",
+      "title": "Trampoline Party",
       "description": "Bounce around with your friends and let the energy flow! This trampoline party is all about laughter, high jumps, and carefree fun. Whether you’re showing off flips, competing in jump challenges, or just enjoying the thrill of being airborne, it’s the perfect way to spend an evening full of movement and joy. Don’t forget to bring your best tricks and your sense of adventure.",
       "image": "https://i.pinimg.com/736x/3d/2f/af/3d2faf4e3188d34a9fcdc00df59e77b0.jpg",
       "categoryIds": ["2"],
@@ -14,7 +14,7 @@
     {
       "id": "2",
       "createdBy": "1",
-      "title": "Laser Tag mania",
+      "title": "Laser Tag Mania",
       "description": "Step into a world of neon lights and excitement with our Laser Tag Mania event! You and your friends will gear up and battle it out in an arena filled with obstacles, hiding spots, and plenty of adrenaline-pumping action. Whether you’re strategizing in teams or going solo, it’s a chance to test your aim, reflexes, and teamwork in a thrilling atmosphere.",
       "image": "https://images.unsplash.com/photo-1564918093913-99164bbdc711",
       "categoryIds": ["2"],
@@ -36,7 +36,7 @@
     {
       "id": "4",
       "createdBy": "2",
-      "title": "Badminton game",
+      "title": "Badminton Game",
       "description": "Grab your racket and join us for a fun and active badminton game! This is a casual match where beginners and seasoned players alike can enjoy hitting the shuttlecock back and forth. Expect friendly competition, laughter when shots go wild, and plenty of opportunities to improve your skills while spending time outdoors with others who enjoy the sport.",
       "image": "https://s3.eu-west-2.amazonaws.com/ws-activestirling/production/Badminton/_1200x630_crop_center-center_none/Badminton-3.jpg",
       "categoryIds": ["1", "2"],
@@ -47,7 +47,7 @@
     {
       "id": "5",
       "createdBy": "3",
-      "title": "Yoga",
+      "title": "Yoga Session",
       "description": "Start your day with a rejuvenating yoga session designed to stretch your body and calm your mind. We’ll move through a series of poses that balance flexibility, strength, and relaxation. Whether you’re a beginner or experienced yogi, this is your chance to breathe deeply, reset, and carry a sense of peace into the rest of your day.",
       "image": "https://wincacademy.github.io/webpages/media/pexels-gabby-k-5384538.jpg",
       "categoryIds": ["1", "3"],
@@ -58,7 +58,7 @@
     {
       "id": "6",
       "createdBy": "2",
-      "title": "Tennis",
+      "title": "Tennis Meetup",
       "description": "Join us on the court for an energetic tennis session where fun meets fitness. Whether you’re practicing your serve, volleying with a partner, or playing a quick match, this is a great opportunity to improve your game while socializing with fellow enthusiasts. Come ready to sweat, laugh, and enjoy the challenge of chasing the ball across the court.",
       "image": "https://wincacademy.github.io/webpages/media/pexels-floriandoppler-3207474.jpg",
       "categoryIds": ["1"],
@@ -69,7 +69,7 @@
     {
       "id": "7",
       "createdBy": "5",
-      "title": "Board games night",
+      "title": "Board Games Night",
       "description": "Bring your competitive spirit and your love of strategy to our Board Games Night! From classic favorites to modern hits, we’ll have a wide selection of games to choose from. Whether you prefer building empires, solving mysteries, or just rolling dice and hoping for the best, this is a cozy evening full of laughter, surprises, and friendly rivalry.",
       "image": "https://wincacademy.github.io/webpages/media/pexels-tima-miroshnichenko-6598746.jpg",
       "categoryIds": ["2"],
@@ -80,7 +80,7 @@
     {
       "id": "8",
       "createdBy": "5",
-      "title": "Tea tasting",
+      "title": "Tea Tasting",
       "description": "Unwind and explore a variety of soothing flavors at our tea tasting event. From delicate green teas to bold herbal blends, you’ll have the chance to sample and discover new favorites. Along the way, we’ll share insights into brewing techniques and the cultural traditions behind different teas, making it both a relaxing and educational experience.",
       "image": "https://wincacademy.github.io/webpages/media/pexels-viktoria-alipatova-1083711-2130137.jpg",
       "categoryIds": ["3", "5"],
@@ -91,7 +91,7 @@
     {
       "id": "9",
       "createdBy": "4",
-      "title": "Nature walk",
+      "title": "Nature Walk",
       "description": "Take a break from the city and immerse yourself in the beauty of the outdoors with a guided nature walk. As we follow the forest trail, we’ll enjoy the fresh air, listen to the sounds of wildlife, and take in the calming atmosphere of the trees around us. It’s a wonderful way to reconnect with nature, clear your mind, and move at a gentle pace.",
       "image": "https://wincacademy.github.io/webpages/media/hiking.png",
       "categoryIds": ["6"],
@@ -102,7 +102,7 @@
     {
       "id": "10",
       "createdBy": "3",
-      "title": "Bowling night",
+      "title": "Bowling Night",
       "description": "Get ready to roll into a night of strikes, spares, and plenty of fun at the bowling alley! This event is all about friendly competition and socializing as we see who can knock down the most pins. Whether you’re a pro bowler or someone who just wants to laugh at the gutter balls, it’s a guaranteed good time with friends old and new.",
       "image": "https://wincacademy.github.io/webpages/media/pexels-rnnzeravac-9273055.jpg",
       "categoryIds": ["2"],
@@ -113,7 +113,7 @@
     {
       "id": "11",
       "createdBy": "4",
-      "title": "Cooking workshop",
+      "title": "Cooking Workshop",
       "description": "Discover the joy of cooking in this hands-on workshop where we’ll prepare a delicious meal together. You’ll learn new techniques, explore fresh ingredients, and enjoy the satisfaction of creating something from scratch. At the end of the session, we’ll sit down and share the meal, making it a social and flavorful experience.",
       "image": "https://images.unsplash.com/photo-1556910103-1c02745aae4d",
       "categoryIds": ["5"],
@@ -124,7 +124,7 @@
     {
       "id": "12",
       "createdBy": "5",
-      "title": "Karaoke night",
+      "title": "Karaoke Night",
       "description": "Unleash your inner performer and take the stage at our Karaoke Night! Whether you love singing pop hits, rock classics, or cheesy ballads, this is your chance to shine—or just laugh along with friends as they give it their all. No matter your skill level, the atmosphere is all about having fun and creating memories through music.",
       "image": "https://images.unsplash.com/photo-1738156793840-e7ad46384761",
       "categoryIds": ["2", "4"],
@@ -135,7 +135,7 @@
     {
       "id": "13",
       "createdBy": "1",
-      "title": "Book club meetup",
+      "title": "Book Club Meetup",
       "description": "Settle into a cozy evening of thoughtful discussion and shared ideas at our Book Club Meetup. We’ll chat about this month’s chosen read, dive into different perspectives, and enjoy the company of fellow book lovers. Whether you’ve finished every page or just want to listen in, it’s a warm and welcoming space for conversation and connection.",
       "image": "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0",
       "categoryIds": ["3"],
